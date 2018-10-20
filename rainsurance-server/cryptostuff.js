@@ -1,7 +1,7 @@
 exports.trustedWeatherAddress = '0x41A153E71C62b4CB918104EE0DFb9B29b30339CB';
 exports.privateKey = '0xD4A9C8084E603E27DE7CF24E545E2DEC733D6B4A8F05696B61DB2D4301C24A56';
 exports.bankAddress = '0xaeEb5e5e097394CFf0e9Bb88cb62EFAF4841Dcc3';
-exports.contractAddress = '0xf698c75376c1aea47457e3f324ba92e502c953bd';
+exports.mainContractAddress = '0xf698c75376c1aea47457e3f324ba92e502c953bd';
 exports.mainContract = [
 	{
 		"constant": true,

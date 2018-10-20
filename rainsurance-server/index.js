@@ -1,9 +1,10 @@
 var crypto = require('./cryptostuff');
+var cryptoPay = require('./cryptoPay');
 
 const mainContract = crypto.mainContract;
 const rainsuranceContract = crypto.rainsuranceContract;
 const my_private_key = crypto.privateKey;
-const contractAddress = crypto.contractAddress;
+const mainContractAddress = crypto.mainContractAddress;
 const bankAddress = crypto.bankAddress;
 const trustedWeatherAddress = crypto.trustedWeatherAddress;
 const gas = 8000000;
@@ -12,7 +13,7 @@ var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'));
 web3.eth.accounts.wallet.add(my_private_key);
 
-var contract = new web3.eth.Contract(mainContract, contractAddress);
+var contract = new web3.eth.Contract(mainContract, mainContractAddress);
 
 const express = require('express');
 const app = express();
@@ -22,6 +23,33 @@ app.use(require("body-parser").json())
 
 app.get('/', (request, response) => {
   response.send('Hello from Express!')
+});
+
+app.post('/api/v1/pay', (req,res) => {
+	console.log("Processing payment ...");
+	console.log(request.body);
+
+	var privateKey = request.body.privateKey;
+	var contractAddress = request.body.contractAddress;
+	var price = request.body.price;
+	var myAddress = request.body.myAddress;
+
+	var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'));
+	web3.eth.accounts.wallet.add(privateKey);
+
+    var c = new web3.eth.Contract(rainsuranceContract, contractAddress);
+
+	c.methods.receiveMoneyFromCustomer().send({ 
+	  		from: myAddress, 
+	  		gas: gas, 
+	  		value: web3.utils.toWei(price + ".0", "finney")
+	  	},function(error, result) {
+	        if(result == null) {
+	        	console.log(error);
+	        } else {
+	        	console.log(result);
+	        }
+    	});
 });
 
 app.post('/api/v1/quote', (request, response) => {

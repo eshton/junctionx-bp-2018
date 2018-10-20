@@ -1,4 +1,5 @@
 import React from 'react';
+import crypto from '../services/cryptoStuff';
 import { Button, StyleSheet, View } from 'react-native';
 
 import LocationConfigurator from '../components/LocationConfigurator';
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
 
 const InsuranceConfigurator = ({ navigation }) => (
   <View styles={styles.container}>
-    <Button title="lol" onPress={() => navigation.navigate('Result')}>go</Button>
+    <Button title="A gomb" onPress={() => crypto()} />
   </View>
 );
 

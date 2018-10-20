@@ -1,5 +1,3 @@
-import Web3 from 'web3';
-
 export default () => {//toContractAddress, insurancePrice) => {
 	const my_private_key = "0x3C6A887EB2D2B01852A0C09566738A02F6F2DABDD62B0D972D2B2FE6417141B0"
 	const contractAddress = "0x0809603a5a77ea8d325ded23adbee558065635f8ac27e6d2a3afec8e7ddc659e"; //toContractAddress;

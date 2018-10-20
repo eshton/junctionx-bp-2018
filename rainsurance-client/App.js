@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo';
 import Workflow, { SCREENS } from './src';
-import './global';
-
-
-
-const Web3 = require('web3');
 
 const styles = StyleSheet.create({
   container: {

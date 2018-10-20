@@ -4,6 +4,8 @@ import Index from './screens';
 import InsuranceConfigurator from './screens/InsuranceConfigurator';
 import InsuranceResult from './screens/InsuranceResult';
 
+import UserProfile from './components/UserProfile';
+
 require('./util/extensions');
 
 export const SCREENS = [
@@ -11,6 +13,10 @@ export const SCREENS = [
   'DateConfigurator',
   'LocationConfigurator'
 ];
+
+export const HeaderContent = {
+  Index: UserProfile
+};
 
 export default createStackNavigator({
   Index: {

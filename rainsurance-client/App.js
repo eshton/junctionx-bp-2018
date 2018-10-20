@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, SafeAreaView, View } from 'react-native';
 import { LinearGradient } from 'expo';
-import Workflow, { SCREENS } from './src';
+import Workflow, { SCREENS, HeaderContent } from './src/Workflow';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  headerContainer: {
+    marginTop: 40,
+  },
+  headerContainerContent: {
+    flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logo: {
+    alignSelf: 'center'
   },
   floatingPane: {
     position: 'absolute',
@@ -27,7 +40,7 @@ const styles = StyleSheet.create({
 class App extends Component {
 
   state = {
-    screenIndex: 1,
+    screenIndex: 0,
     paneTop: 75,
   };
 
@@ -44,6 +57,12 @@ class App extends Component {
     this.setState({ paneTop, screenIndex: event.index + 1 });
   };
 
+  renderHeaderContent = () => {
+    const screen = SCREENS[this.state.screenIndex];
+    const component = HeaderContent[screen];
+    return component && component();
+  };
+
   render() {
     const { paneTop, screenIndex } = this.state;
 
@@ -53,6 +72,14 @@ class App extends Component {
         colors={['#41E3F1', '#0070F9']}
         start={[1, 0.1]}
       >
+        <SafeAreaView style={[styles.headerContainer, {
+          height: `${paneTop}%`
+        }]}>
+          <Image source={require('./assets/otpBankLogo.png')} style={styles.logo} />
+          <View style={styles.headerContainerContent}>
+            {this.renderHeaderContent()}
+          </View>
+        </SafeAreaView>
         <View style={[styles.floatingPane, {
           top: `${paneTop}%`,
           height: `${100 - paneTop}%`,
@@ -61,7 +88,7 @@ class App extends Component {
             style={styles.content}
             initialRouteName={SCREENS[0]}
             onTransitionStart={this.onNavigating}
-            screenProps={{ nextScreen: SCREENS[screenIndex] }}
+            screenProps={{ nextScreen: SCREENS[screenIndex + 1] }}
           />
         </View>
       </LinearGradient>

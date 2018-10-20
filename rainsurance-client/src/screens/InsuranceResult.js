@@ -2,9 +2,9 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 const InsuranceConfigurator = ({ navigation }) => (
-  <View>
+  <SafeAreaView>
     <Text>Result</Text>
-  </View>
+  </SafeAreaView>
 );
   
 export default InsuranceConfigurator;

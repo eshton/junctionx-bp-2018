@@ -1,9 +1,8 @@
 import React from 'react';
-import crypto from '../services/cryptoStuff';
 import { Button, StyleSheet, View } from 'react-native';
 
 import LocationConfigurator from '../components/LocationConfigurator';
-import DateConfigurator from '../components/DateConfigurator';
+import DateConfigurator from '../components/Dateconfigurator';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,9 +10,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const InsuranceConfigurator = ({ navigation }) => (
+const InsuranceConfigurator = ({ navigation, screenProps: { nextScreen } }) => (
   <View styles={styles.container}>
-    <Button title="A gomb" onPress={() => crypto()} />
+    <Button title="A gomb" onPress={() => {
+      navigation.navigate(nextScreen);
+    }} />
   </View>
 );
 

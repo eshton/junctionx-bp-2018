@@ -1,14 +1,19 @@
 import React from 'react';
-import { Button, Text, SafeAreaView } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 
-import Dateconfigurator from '../components/Dateconfigurator';
-import DateConfigurator from '../components/Dateconfigurator';
+import LocationConfigurator from '../components/LocationConfigurator';
+import DateConfigurator from '../components/DateConfigurator';
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff'
+  }
+});
 
 const InsuranceConfigurator = ({ navigation }) => (
-  <SafeAreaView>
-    <DateConfigurator />
+  <View styles={styles.container}>
     <Button title="lol" onPress={() => navigation.navigate('Result')}>go</Button>
-  </SafeAreaView>
+  </View>
 );
 
 export default InsuranceConfigurator;

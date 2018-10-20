@@ -14,6 +14,9 @@ export default createStackNavigator({
   },
 }, {
   headerMode: 'none',
+  cardStyle: {
+    backgroundColor: '#fff'
+  },
   navigationOptions: {
     headerVisible: false,
   }

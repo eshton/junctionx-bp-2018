@@ -1,9 +1,5 @@
 export default () => {//toContractAddress, insurancePrice) => {
-	const my_private_key = "0x3C6A887EB2D2B01852A0C09566738A02F6F2DABDD62B0D972D2B2FE6417141B0"
-	const contractAddress = "0x0809603a5a77ea8d325ded23adbee558065635f8ac27e6d2a3afec8e7ddc659e"; //toContractAddress;
-	const price = 500;//insurancePrice;
-	const myAddress = '0xe86A9E3Bf11aD57E8cADcE910C1A4865B5793545';
-	const gas = 3000000;
+
 	const contractJson = [
 		{
 			"constant": false,
@@ -212,18 +208,5 @@ export default () => {//toContractAddress, insurancePrice) => {
 
 	//var Web3 = require('web3');
 
-	var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'));
-	web3.eth.accounts.wallet.add(my_private_key);
 
-	contract.methods.receiveMoneyFromCustomer().send({ 
-	  		from: myAddress, 
-	  		gas: gas, 
-	  		value: web3.utils.toWei(price + ".0", "finney")
-	  	},function(error, result) {
-	        if(result == null) {
-	        	console.log(error);
-	        } else {
-	        	console.log(result);
-	        }
-    	});
 }

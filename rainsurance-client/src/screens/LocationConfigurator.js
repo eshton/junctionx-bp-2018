@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+
 import LocationSearch from '../components/LocationSearch';
+import NavigationScreen from '../components/NavigationScreen';
 import store from '../util/store';
 
 const styles = StyleSheet.create({
@@ -20,9 +22,11 @@ class LocationConfigurator extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <LocationSearch onSelect={this.selected} value={this.state.location} />
-      </View>
+      <NavigationScreen nextScreen={this.props.screenProps.nextScreen}>
+        <View style={styles.container}>
+          <LocationSearch onSelect={this.selected} value={this.state.location} />
+        </View>
+      </NavigationScreen>
     );
   }
 }

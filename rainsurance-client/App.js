@@ -46,7 +46,7 @@ class App extends Component {
 
   onNavigating = (event) => {
     let paneTop = 25;
-    const nextScreen = SCREENS[event.index + 1];
+    const nextScreen = SCREENS[event.index];
 
     switch(name) {
       case 'Index':
@@ -54,7 +54,7 @@ class App extends Component {
         break;
     }
 
-    this.setState({ paneTop, screenIndex: event.index + 1 });
+    this.setState({ paneTop, screenIndex: event.index });
   };
 
   renderHeaderContent = () => {

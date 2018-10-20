@@ -1,15 +1,25 @@
 import { createStackNavigator } from 'react-navigation';
 
+import Index from './screens';
 import InsuranceConfigurator from './screens/InsuranceConfigurator';
 import InsuranceResult from './screens/InsuranceResult';
 
 require('./util/extensions');
 
+export const SCREENS = [
+  'Index',
+  'DateConfigurator',
+  'LocationConfigurator'
+];
+
 export default createStackNavigator({
-  Configurator: {
+  Index: {
+    screen: Index,
+  },
+  DateConfigurator: {
     screen: InsuranceConfigurator,
   },
-  Result: {
+  LocationConfigurator: {
     screen: InsuranceResult,
   },
 }, {
@@ -19,5 +29,6 @@ export default createStackNavigator({
   },
   navigationOptions: {
     headerVisible: false,
+    gesturesEnabled: false,
   }
 });

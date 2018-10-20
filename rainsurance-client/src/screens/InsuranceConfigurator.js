@@ -11,9 +11,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const InsuranceConfigurator = ({ navigation }) => (
+const InsuranceConfigurator = ({ navigation, screenProps: { nextScreen } }) => (
   <View styles={styles.container}>
-    <Button title="A gomb" onPress={() => crypto()} />
+    <Button title="A gomb" onPress={() => {
+      navigation.navigate(nextScreen);
+    }} />
   </View>
 );
 

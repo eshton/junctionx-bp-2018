@@ -63,7 +63,7 @@ class LocationSearch extends Component {
   };
 
   selectCity = (selectedIndex) => {
-    Haptic.impact(Haptic.ImpactStyles.Light)
+    Haptic.impact(Haptic.ImpactStyles.Light);
     this.setState({ selectedIndex });
   };
 
@@ -83,6 +83,7 @@ class LocationSearch extends Component {
         <View style={styles.resultContainerStyle}>
           {results.map((city, index) => (
             <CityResult
+              key={city}
               city={city}
               selected={selectedIndex === index}
               pressed={() => this.selectCity(index)}

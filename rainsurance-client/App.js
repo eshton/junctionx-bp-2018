@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, SafeAreaView, View } from 'react-native';
+import { Animated, Image, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo';
 import Workflow, { SCREENS, HeaderContent } from './src/Workflow';
+import { percentage, animateCounterPercentage } from './src/util/animation-helper';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,20 +43,16 @@ class App extends Component {
 
   state = {
     screenIndex: 0,
-    paneTop: 75,
+    paneTop: new Animated.Value(85),
+    paneHeight: new Animated.Value(15),
   };
 
   onNavigating = (event) => {
     let paneTop = 25;
-    const nextScreen = SCREENS[event.index];
 
-    switch(name) {
-      case 'Index':
-        paneTop = 75;
-        break;
-    }
+    animateCounterPercentage(this.state.paneTop, this.state.paneHeight, paneTop);
 
-    this.setState({ paneTop, screenIndex: event.index });
+    this.setState({ screenIndex: event.index });
   };
 
   renderHeaderContent = () => {
@@ -65,7 +62,7 @@ class App extends Component {
   };
 
   render() {
-    const { paneTop, screenIndex } = this.state;
+    const { paneTop, paneHeight, screenIndex } = this.state;
 
     return (
       <LinearGradient
@@ -73,17 +70,17 @@ class App extends Component {
         colors={['#41E3F1', '#0070F9']}
         start={[1, 0.1]}
       >
-        <SafeAreaView style={[styles.headerContainer, {
-          height: `${paneTop}%`
+        <Animated.View style={[styles.headerContainer, {
+          height: percentage(paneTop)
         }]}>
           <Image source={require('./assets/otpBankLogo.png')} style={styles.logo} resizeMode="contain" />
           <View style={styles.headerContainerContent}>
             {this.renderHeaderContent()}
           </View>
-        </SafeAreaView>
-        <View style={[styles.floatingPane, {
-          top: `${paneTop}%`,
-          height: `${100 - paneTop}%`,
+        </Animated.View>
+        <Animated.View style={[styles.floatingPane, {
+          top: percentage(paneTop),
+          height: percentage(paneHeight)
         }]}>
           <Workflow
             style={styles.content}
@@ -91,7 +88,7 @@ class App extends Component {
             onTransitionStart={this.onNavigating}
             screenProps={{ nextScreen: SCREENS[screenIndex + 1] }}
           />
-        </View>
+        </Animated.View>
       </LinearGradient>
     );
   }

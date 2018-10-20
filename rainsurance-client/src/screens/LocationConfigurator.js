@@ -7,7 +7,6 @@ import store from '../util/store';
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: '#fff'
     padding: 30,
   }
 });

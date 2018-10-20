@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 50,
     right: 0,
-    color: 'rgb(255, 102, 0)'
   }
 });
 

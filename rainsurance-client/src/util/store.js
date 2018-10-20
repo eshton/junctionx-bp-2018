@@ -8,12 +8,12 @@ class Store {
     this._location = val;
   }
 
-  get date() {
-    return this._date;
+  get dateRange() {
+    return this._dateRange;
   }
 
-  set date(val) {
-    this._date = val;
+  set dateRange(val) {
+    this._dateRange = val;
   } 
 }
 

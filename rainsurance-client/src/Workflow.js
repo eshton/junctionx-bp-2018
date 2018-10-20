@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 
 import Index from './screens';
-import InsuranceConfigurator from './screens/InsuranceConfigurator';
+import DateConfigurator from './screens/DateConfigurator';
 import LocationConfigurator from './screens/LocationConfigurator';
 import InsuranceResult from './screens/InsuranceResult';
 
@@ -13,6 +13,7 @@ export const SCREENS = [
   'Index',
   'LocationConfigurator',
   'DateConfigurator',
+  'InsuranceResult'
 ];
 
 export const HeaderContent = {
@@ -24,10 +25,13 @@ export default createStackNavigator({
     screen: Index,
   },
   DateConfigurator: {
-    screen: InsuranceConfigurator,
+    screen: DateConfigurator,
   },
   LocationConfigurator: {
     screen: LocationConfigurator,
+  },
+  InsuranceResult: {
+    screen: InsuranceResult,
   },
 }, {
   headerMode: 'none',

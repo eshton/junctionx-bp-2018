@@ -20,12 +20,12 @@ const NavigationScreen = ({ children, navigation: { navigate }, nextScreen, acti
     {children}
     <ActionButton
       buttonColor='rgb(255, 102, 0)'
-      onPress={() => {
-        navigate(nextScreen);
-
+      onPress={async () => {
         if (action) {
-          action();
+          await action();
         }
+
+        navigate(nextScreen);
       }}
       style={styles.cta}
       renderIcon={() => <Ionicons size={25} name="md-arrow-round-forward" color='#fff' />}

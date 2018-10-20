@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import './global';
+
 import { LinearGradient } from 'expo';
 import RootStack from './src';
+
+
+const Web3 = require('web3');
 
 const styles = StyleSheet.create({
   container: {

@@ -137,7 +137,7 @@ app.post('/api/v1/quote', (request, response) => {
 				response.send(resp); 
 	        }
 
-    	})
+    	});
 	}
     catch(err) {
     	console.log(err);

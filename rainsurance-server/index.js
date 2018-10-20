@@ -1,19 +1,16 @@
 var crypto = require('./cryptostuff');
-var cryptoPay = require('./cryptoPay');
 
 const mainContract = crypto.mainContract;
 const rainsuranceContract = crypto.rainsuranceContract;
-const my_private_key = crypto.privateKey;
+const bankPrivateKey = crypto.bankPrivateKey;
+const weatherPrivateKey = crypto.weatherPrivateKey;
 const mainContractAddress = crypto.mainContractAddress;
 const bankAddress = crypto.bankAddress;
 const trustedWeatherAddress = crypto.trustedWeatherAddress;
+const ropstenUrl = 'https://ropsten.infura.io';
 const gas = 8000000;
 
 var Web3 = require('web3');
-var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'));
-web3.eth.accounts.wallet.add(my_private_key);
-
-var contract = new web3.eth.Contract(mainContract, mainContractAddress);
 
 const express = require('express');
 const app = express();
@@ -34,7 +31,7 @@ app.post('/api/v1/pay', (req,res) => {
 	var price = request.body.price;
 	var myAddress = request.body.myAddress;
 
-	var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'));
+	var web3 = new Web3(new Web3.providers.HttpProvider(ropstenUrl));
 	web3.eth.accounts.wallet.add(privateKey);
 
     var c = new web3.eth.Contract(rainsuranceContract, contractAddress);
@@ -56,6 +53,10 @@ app.post('/api/v1/quote', (request, response) => {
 
 	console.log("Processing QUOTE request...");
 	console.log(request.body);
+
+	var web3 = new Web3(new Web3.providers.HttpProvider(ropstenUrl));
+	web3.eth.accounts.wallet.add(bankPrivateKey);
+	var contract = new web3.eth.Contract(mainContract, mainContractAddress);
 
 	var fromDate = request.body.fromDate;
 	var toDate = request.body.toDate;
@@ -103,6 +104,10 @@ app.listen(port, (err) => {
   }
   console.log(`Server is listening on port ${port} ...`);
 
+	var web3 = new Web3(new Web3.providers.HttpProvider(ropstenUrl));
+	web3.eth.accounts.wallet.add(weatherPrivateKey);
+	var contract = new web3.eth.Contract(mainContract, mainContractAddress);
+
   (function() {
 		const Poller = require('./Poller');
 		let poller = new Poller(1000); 
@@ -113,12 +118,19 @@ app.listen(port, (err) => {
 				console.log(`Found ${numRainsurances} RAINsurances ...`);
 				for (var i = 0; i < numRainsurances; i++) {
 					contract.methods.insurances(i).call(function(error, rainsuranceAddress){
+						console.log(rainsuranceAddress);
 						var r = new web3.eth.Contract(rainsuranceContract, rainsuranceAddress);
 						r.methods.money_bank().call(function(error, money_bank){
 							r.methods.money_customer().call(function(error, money_customer){
-								if (money_customer != 0 && money_bank != 0) {
+								// if (money_customer != 0 && money_bank != 0) {
+								// 	r.methods.updateRain(500).call(function(error, result){
+								// 		if (error) {
 
-								}
+								// 		} else {
+								// 			console.log('Rainsurance finished successfully ...');	
+								// 		}
+								// 	});
+								// }
 							});
 						});
 						

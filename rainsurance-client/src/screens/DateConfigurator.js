@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import NavigationScreen from '../components/NavigationScreen';
 import Calendar from '../components/Calendar';
 import store from '../util/store';

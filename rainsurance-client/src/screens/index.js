@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 40,
     backgroundColor: 'rgb(255, 102, 0)',
-    paddingVertical: 20,
-    paddingHorizontal: 30,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
   },
   buttonContent: {
     flexDirection: 'row',

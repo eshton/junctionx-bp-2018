@@ -1,35 +1,97 @@
-import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import AutoComplete from 'react-native-autocomplete-input';
+import React, { Component } from 'react';
+import { Text, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Haptic } from 'expo';
 
-const data = ['Paris', 'London'];
+const cities = [
+  'New York',
+  'Stockholm',
+  'Vienna',
+  'Rome',
+  'Paris',
+  'Hamburg',
+  'Barcelona',
+  'Moscow',
+  'Shenzen'
+].sort((a, b) => a.localeCompare(b));
+
+const borderStyle = {
+  borderWidth: 1,
+  borderRadius: 30,
+  borderColor: 'rgba(0, 0, 0, 0.06)',
+}
 
 const styles = StyleSheet.create({
-  input: {
-    borderRadius: 30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
-    height: 40
+  containerStyle: {
+    padding: 5,
+  },
+  inputContainerStyle: {
+    ...borderStyle,
+    padding: 14,
+  },
+  resultContainerStyle: {
+    marginTop: 5,
+    // flex: 1,
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  itemStyle: {
+    ...borderStyle,
+    padding: 5,
+    margin: 10
   }
 }); 
 
-const renderItem = (item) => (
-  <Text>{item}</Text>
-  );
+const CityResult = ({ city, selected, pressed }) => (
+  <TouchableOpacity
+    onPress={pressed}
+    style={[styles.itemStyle, { backgroundColor: selected ? 'rgb(43, 54, 149)' : '#fff'}]}
+  >
+    <Text style={{ color: selected ? '#fff' : '#000' }}>{city}</Text>
+  </TouchableOpacity>
+);
   
-  const LocationSearch = ({ onSelect, value }) => (
-    <AutoComplete
-      onChangeText={onSelect}
-      data={data}
-      suggestionObjectTextProperty='text'
-      defaultValue={value}
-      renderItem={renderItem}
-      // inputContainerStyle={styles.input}
-      style={styles.input}
-    />
-  );
-    
+class LocationSearch extends Component {
+  state = {
+    results: cities,
+    selectedIndex: null,
+  };
+
+  filter = (text) => {
+    const results = cities.filter(city => city.toLocaleLowerCase().startsWith(text.toLocaleLowerCase()));
+    this.setState({ results, selectedIndex: null });
+  };
+
+  selectCity = (selectedIndex) => {
+    Haptic.impact(Haptic.ImpactStyles.Light)
+    this.setState({ selectedIndex });
+  };
+
+  render() {
+    const { results, selectedIndex } = this.state;
+
+    return (
+      <View style={styles.containerStyle}>
+        <View style={styles.inputContainerStyle}>
+          <TextInput
+            placeholder="Search destinations"
+            onChangeText={this.filter}
+          />
+        </View>
+
+        <Text style={{ marginTop: 10, fontWeight: 'bold' }}>Suggestions</Text>
+        <View style={styles.resultContainerStyle}>
+          {results.map((city, index) => (
+            <CityResult
+              city={city}
+              selected={selectedIndex === index}
+              pressed={() => this.selectCity(index)}
+            />
+          ))}
+        </View>
+      </View>
+    );
+  }
+}
+
 export default LocationSearch;

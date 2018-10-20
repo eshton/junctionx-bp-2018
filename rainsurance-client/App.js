@@ -11,16 +11,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   headerContainer: {
-    marginTop: 40,
+    marginTop: 30,
   },
   headerContainerContent: {
-    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    height: 40,
+    width: 200
   },
   floatingPane: {
     position: 'absolute',
@@ -75,7 +76,7 @@ class App extends Component {
         <SafeAreaView style={[styles.headerContainer, {
           height: `${paneTop}%`
         }]}>
-          <Image source={require('./assets/otpBankLogo.png')} style={styles.logo} />
+          <Image source={require('./assets/otpBankLogo.png')} style={styles.logo} resizeMode="contain" />
           <View style={styles.headerContainerContent}>
             {this.renderHeaderContent()}
           </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 
 const InsuranceConfigurator = ({ navigation }) => (
   <SafeAreaView>

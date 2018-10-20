@@ -3,6 +3,8 @@ import { createStackNavigator } from 'react-navigation';
 import InsuranceConfigurator from './screens/InsuranceConfigurator';
 import InsuranceResult from './screens/InsuranceResult';
 
+require('./util/extensions');
+
 export default createStackNavigator({
   Configurator: {
     screen: InsuranceConfigurator,
@@ -12,6 +14,9 @@ export default createStackNavigator({
   },
 }, {
   headerMode: 'none',
+  cardStyle: {
+    backgroundColor: '#fff'
+  },
   navigationOptions: {
     headerVisible: false,
   }

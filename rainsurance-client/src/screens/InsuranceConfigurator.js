@@ -3,7 +3,7 @@ import crypto from '../services/cryptoStuff';
 import { Button, StyleSheet, View } from 'react-native';
 
 import LocationConfigurator from '../components/LocationConfigurator';
-import DateConfigurator from '../components/Dateconfigurator';
+import DateConfigurator from '../components/DateConfigurator';
 
 const styles = StyleSheet.create({
   container: {

@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingLeft: 10,
     paddingRight: 10,
-    testSize: 25,
     margin: 5,
     flexDirection: 'row',
     alignItems: 'center'

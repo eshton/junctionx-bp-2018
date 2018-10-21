@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Calendar } from 'react-native-calendars'
+import { Haptic } from 'expo';
 
 const SELECTION_COLOR = 'rgb(43, 54, 149)';
 
@@ -47,14 +48,15 @@ class DateConfigurator extends Component {
     let newState = {};
     const { startingDate, endingDate } = this.state;
     const { rangeSelected } = this.props;
-    
+
     if (!startingDate || (startingDate && endingDate)) {
       newState = this._firstDayPress(day);
     } else {
       newState = this._seconDayPress(day);
       rangeSelected && rangeSelected(newState);
     }
-    
+
+    Haptic.impact(Haptic.ImpactStyles.Light);
     this.setState(newState);
   }
   

@@ -146,7 +146,7 @@ app.listen(port, (err) => {
 	  });
 	}
 
-  (async function() {
+  (function() {
 		const Poller = require('./Poller');
 		let poller = new Poller(2000); 
 		poller.onPoll(() => {
@@ -173,13 +173,13 @@ app.listen(port, (err) => {
 											r.methods.updateRain(rainedMM).send({ 
 																	  		from: trustedWeatherAddress, 
 																	  		gas: gas
-																		  	},function(error, result){
+																		  	},async function(error, result){
 												if (error) {
 													console.log(error);
 													resolve();
 												} else {
 													console.log(result);
-													console.log('Rainsurance updated successfully, let\'s wait for 1 minute...');	
+													console.log('Rainsurance updated successfully, let\'s wait for 3 minutes...');	
 													await sleepFor(180);
 													resolve();
 												}

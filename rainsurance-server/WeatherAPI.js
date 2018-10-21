@@ -1,4 +1,4 @@
-const http = require("http");
+const https = require("https");
 
 class WeatherAPI {
 
@@ -9,7 +9,7 @@ class WeatherAPI {
 
 	getRainMM(city, fromDate, toDate) {
 		var url = this.url + "?q=" + city + "&appid=" + this.apiKey;
-		http.get(url, res => {
+		https.get(url, res => {
 		  res.setEncoding("utf8");
 		  let body = "";
 		  res.on("data", data => {
@@ -17,7 +17,6 @@ class WeatherAPI {
 		  });
 		  res.on("end", () => {
 		    body = JSON.parse(body);
-		    console.log(body);
 		  });
 		});
 

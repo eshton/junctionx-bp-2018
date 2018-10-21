@@ -143,29 +143,48 @@ app.listen(port, (err) => {
 
 			contract.methods.getDiagnosesCount().call(function(error, numRainsurances){
 				console.log(`Found ${numRainsurances} RAINsurances ...`);
-				for (var i = 0; i < numRainsurances; i++) {
-					contract.methods.insurances(i).call(function(error, rainsuranceAddress){
-						console.log(rainsuranceAddress);
-						var r = new web3.eth.Contract(rainsuranceContract, rainsuranceAddress);
-						r.methods.money_bank().call(function(error, money_bank){
-							r.methods.money_customer().call(function(error, money_customer){
-								// if (money_customer != 0 && money_bank != 0) {
-								// 	r.methods.updateRain(500).call(function(error, result){
-								// 		if (error) {
 
-								// 		} else {
-								// 			console.log('Rainsurance finished successfully ...');	
-								// 		}
-								// 	});
-								// }
+				var promises = [];
+				for (var i = 0; i < numRainsurances; i++) {
+					var p = new Promise(function(resolve, reject){
+						contract.methods.insurances(i).call(function(error, rainsuranceAddress){
+							console.log(rainsuranceAddress);
+							var r = new web3.eth.Contract(rainsuranceContract, rainsuranceAddress);
+
+							r.methods.money_bank().call(function(error, money_bank){
+								r.methods.money_customer().call(function(error, money_customer){
+									if (money_customer != 0 && money_bank != 0) {
+										console.log(trustedWeatherAddress);
+										r.methods.updateRain(500).send({ 
+																  		from: trustedWeatherAddress, 
+																  		gas: gas
+																	  	},function(error, result){
+											console.log("Calling updateRain for rainsurance...");
+											if (error) {
+												console.log(error);
+												resolve();
+											} else {
+												console.log(result);
+												console.log('Rainsurance finished successfully ...');	
+												resolve();
+											}
+										});
+									} else {
+										resolve();
+									}
+								});
 							});
+
 						});
 						
 					});
-				}
-			});
 
-		    poller.poll();
+					promises.push(p);
+				}
+				Promise.all(promises).then(function(values){
+					poller.poll();
+				});
+			});
 		});
 		poller.poll();
   })();

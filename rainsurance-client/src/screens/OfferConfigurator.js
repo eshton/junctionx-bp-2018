@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  button: {
+    width: 200
+  }
 });
 
 class OfferConfigurator extends Component {
@@ -22,7 +25,7 @@ class OfferConfigurator extends Component {
     });
   }
 
-  pay = () => {
+  payOffer = () => {
     const { navigation, screenProps } = this.props;
 
     this.setState({ progress: true }, async () => {
@@ -37,8 +40,10 @@ class OfferConfigurator extends Component {
       <View style={styles.container}>
         <ActionButton
           label="Accept"
+          icon="ios-checkmark-circle"
           loading={this.state.progress}
-          onPress={this.pay}
+          onPress={this.payOffer}
+          style={styles.button}
         />
       </View>
     );

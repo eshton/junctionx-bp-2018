@@ -48,11 +48,11 @@ contract Rainsurance {
         require(this.balance > 0);
         require(now > end_timestamp);
         
-        bank.transfer(money_customer);
+        bank.send(money_customer);
         if (rain_mm >= rain_mm_threshold) {
-            customer.transfer(money_bank);
+            customer.send(money_bank);
         } else {
-            bank.transfer(money_bank);
+            bank.send(money_bank);
         }
     }
     
@@ -60,7 +60,7 @@ contract Rainsurance {
         require(now > end_timestamp);
         require(money_customer == 0);
         
-        bank.transfer(money_bank);
+        bank.send(money_bank);
     }
 }
 

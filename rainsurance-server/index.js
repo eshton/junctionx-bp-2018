@@ -149,9 +149,14 @@ app.listen(port, (err) => {
 			contract.methods.getDiagnosesCount().call(function(error, numRainsurances){
 				console.log(`Found ${numRainsurances} RAINsurances ...`);
 
-				var promises = [];
-				for (var i = 0; i < numRainsurances; i++) {
-					var p = new Promise(function(resolve, reject){
+
+				var promise = new Promise(function(resolve, reject) {
+					function processInsurance(index) {
+						var i = index;
+						if (index == numRainsurances) {
+							resolve("done");
+							return;
+						}
 						contract.methods.insurances(i).call(function(error, rainsuranceAddress){
 							console.log("Processing rainsurance number " + i + " with address " + rainsuranceAddress);
 							var r = new web3.eth.Contract(rainsuranceContract, rainsuranceAddress);
@@ -170,37 +175,33 @@ app.listen(port, (err) => {
 																		  	}, function(error, result){
 												if (error) {
 													console.log(error);
-													resolve();
+													processInsurance(i+1);
 												} else {
 													console.log(result);
 													console.log('Rainsurance updated successfully, let\'s wait for 3 minutes...');	
 													setTimeout(function(){
-														resolve();
+														processInsurance(i+1);
 													}, 180000);
 												}
 											});
 										});
 									} else {
 										console.log("Nothing to do with this one.");
-										//resolve();
+										processInsurance(i+1);
 									}
 								});
 							});
 						});
-					});
-					promises.push(p);
-				}
+					};
+						
+					processInsurance(0);
+				});
+				
 
-				async function runSerial() {
-					var result = Promise.resolve();
-					promises.forEach(p => {
-						result = p.then(() => function(){});
-					});
-				}
-
-				await runSerial();
-				console.log("Finished processing rainsurances ...");
-				poller.poll();
+				promise.then(function(val) {
+					console.log("Finished processing rainsurances ...");
+					poller.poll();
+				});
 			});
 		});
 		poller.poll();

@@ -135,14 +135,15 @@ app.listen(port, (err) => {
   }
   console.log(`Server is listening on port ${port} ...`);
 
-	var web3 = new Web3(new Web3.providers.HttpProvider(ropstenUrl));
-	web3.eth.accounts.wallet.add(weatherPrivateKey);
-	var contract = new web3.eth.Contract(mainContract, mainContractAddress);
-
   (function() {
 		const Poller = require('./Poller');
-		let poller = new Poller(2000); 
+		let poller = new Poller(1000); 
 		poller.onPoll(() => {
+
+			var web3 = new Web3(new Web3.providers.HttpProvider(ropstenUrl));
+			web3.eth.accounts.wallet.add(weatherPrivateKey);
+			var contract = new web3.eth.Contract(mainContract, mainContractAddress);
+
 		    console.log('Checking RAINsurances ...');
 
 			contract.methods.getDiagnosesCount().call(function(error, numRainsurances){
@@ -152,7 +153,7 @@ app.listen(port, (err) => {
 				for (var i = 0; i < numRainsurances; i++) {
 					var p = new Promise(function(resolve, reject){
 						contract.methods.insurances(i).call(function(error, rainsuranceAddress){
-							
+							console.log("Processing rainsurance number " + i + " with address " + rainsuranceAddress);
 							var r = new web3.eth.Contract(rainsuranceContract, rainsuranceAddress);
 
 							r.methods.money_bank().call(function(error, money_bank){
@@ -180,7 +181,8 @@ app.listen(port, (err) => {
 											});
 										});
 									} else {
-										resolve();
+										console.log("Nothing to do with this one.");
+										//resolve();
 									}
 								});
 							});
@@ -188,10 +190,17 @@ app.listen(port, (err) => {
 					});
 					promises.push(p);
 				}
-				Promise.all(promises).then(function(values){
-					console.log("Finished processing rainsurances ...");
-					poller.poll();
-				});
+
+				async function runSerial() {
+					var result = Promise.resolve();
+					promises.forEach(p => {
+						result = p.then(() => function(){});
+					});
+				}
+
+				await runSerial();
+				console.log("Finished processing rainsurances ...");
+				poller.poll();
 			});
 		});
 		poller.poll();

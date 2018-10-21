@@ -5,6 +5,7 @@ import { NavigationActions } from 'react-navigation';
 import Workflow, { SCREENS, HeaderContent } from './src/Workflow';
 import { percentageInterpolation, animateCounterPercentage } from './src/util/animation-helper';
 import HeaderNavigation from './src/components/HeaderNavigation';
+import store from './src/util/store';
 
 const styles = StyleSheet.create({
   container: {
@@ -65,6 +66,10 @@ class App extends Component {
         break;
     }
 
+    if (event.index === 0) {
+      store.reset();
+    }
+
     animateCounterPercentage(this.state.paneTop, this.state.paneHeight, paneTop);
     this.setState({ screenIndex: event.index });
   };
@@ -83,6 +88,11 @@ class App extends Component {
     });
   };
 
+  canNavigate = () => {
+    const { screenIndex } = this.state;
+    return screenIndex > 0 && screenIndex < SCREENS.length - 2;
+  };
+
   render() {
     const { paneTop, paneHeight, screenIndex } = this.state;
 
@@ -98,7 +108,7 @@ class App extends Component {
           }]}>
               <HeaderNavigation
                 style={{ alignSelf: 'stretch' }}
-                shouldNavigate={screenIndex > 0}
+                shouldNavigate={this.canNavigate()}
                 goBack={this.navigateBack}
               />
               <View style={styles.headerContainerContent}>

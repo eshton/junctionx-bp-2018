@@ -2,7 +2,7 @@ exports.trustedWeatherAddress = '0x7eacB01195De3A7D6747958473110D182720e018';
 exports.bankPrivateKey = '0xcbdabc28ba40d4d4a528e0789b2bfba5a6ba334f4f06c88330440530cb4da4e3';
 exports.weatherPrivateKey = '0xa6bfb0863b2413ba132ad72405ebf2ec45fcb578d8a641109414c5d8ceaff32d';
 exports.bankAddress = '0xa8898a92A797788d1a889d6f27dB016e30a90C29';
-exports.mainContractAddress = '0x6b59e863c0cb470ac3df3d083c25c74eefca7007';
+exports.mainContractAddress = '0x056e4b1aaf65c8fb72a6be3bef09ec2b82252bcd';
 exports.mainContract = [
 	{
 		"constant": false,

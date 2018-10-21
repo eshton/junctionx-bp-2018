@@ -144,10 +144,10 @@ app.listen(port, (err) => {
 			web3.eth.accounts.wallet.add(weatherPrivateKey);
 			var contract = new web3.eth.Contract(mainContract, mainContractAddress);
 
-		    console.log('Checking RAINsurances ...');
+		    //console.log('Checking RAINsurances ...');
 
 			contract.methods.getDiagnosesCount().call(function(error, numRainsurances){
-				console.log(`Found ${numRainsurances} RAINsurances ...`);
+				//console.log(`Found ${numRainsurances} RAINsurances ...`);
 
 
 				var promise = new Promise(function(resolve, reject) {
@@ -158,13 +158,13 @@ app.listen(port, (err) => {
 							return;
 						}
 						contract.methods.insurances(i).call(function(error, rainsuranceAddress){
-							console.log("Processing rainsurance number " + i + " with address " + rainsuranceAddress);
+							//console.log("Processing rainsurance number " + i + " with address " + rainsuranceAddress);
 							var r = new web3.eth.Contract(rainsuranceContract, rainsuranceAddress);
 
 							r.methods.money_bank().call(function(error, money_bank){
 								r.methods.money_customer().call(function(error, money_customer){
 									if (money_customer != 0 && money_bank != 0) {
-										console.log("Money was paid by both customer and bank ... let's check the weather ...");
+										console.log("Money was paid by both customer and bank on address " + rainsuranceAddress + " let's check the weather ...");
 
 										r.methods.city().call(function(error,city){
 											var rainedMM = weatherAPI.getRainMM(city, "","");
@@ -177,8 +177,8 @@ app.listen(port, (err) => {
 													console.log(error);
 													processInsurance(i+1);
 												} else {
-													console.log(result);
-													console.log('Rainsurance updated successfully, let\'s wait for 3 minutes...');	
+													//console.log(result);
+													console.log('Rainsurance updated successfully: https://ropsten.etherscan.io/tx/' + result);	
 													setTimeout(function(){
 														processInsurance(i+1);
 													}, 180000);
@@ -186,7 +186,7 @@ app.listen(port, (err) => {
 											});
 										});
 									} else {
-										console.log("Nothing to do with this one.");
+										//console.log("Nothing to do with this one.");
 										processInsurance(i+1);
 									}
 								});
@@ -199,7 +199,7 @@ app.listen(port, (err) => {
 				
 
 				promise.then(function(val) {
-					console.log("Finished processing rainsurances ...");
+					//console.log("Finished processing rainsurances ...");
 					poller.poll();
 				});
 			});

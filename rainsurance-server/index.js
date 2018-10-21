@@ -94,7 +94,7 @@ app.post('/api/v1/quote', (request, response) => {
 	  	pollId,
 	  	customerAddress, 
 	  	trustedWeatherAddress, 
-	  	insurancePrice,
+	  	web3.utils.toWei(insurancePrice + ".0", "finney"),
 	  	rainMm, 
 	  	destination, 
 	  	toDate).send({ 

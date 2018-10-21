@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Calendar } from 'react-native-calendars'
+import { Haptic } from 'expo';
+
+const SELECTION_COLOR = 'rgb(43, 54, 149)';
 
 class DateConfigurator extends Component {
   state = {
@@ -12,11 +15,11 @@ class DateConfigurator extends Component {
     startingDate: new Date(day.timestamp),
     endingDate: null,
     markedDates: {
-      [day.dateString]: {startingDay: true, color: 'blue', textColor: 'white'}
+      [day.dateString]: {startingDay: true, color: SELECTION_COLOR, textColor: '#fff'}
     }
   });
 
-  _seonDayPress = (day) => {
+  _seconDayPress = (day) => {
     const { startingDate } = this.state;  
     const newMarkedDates = [];
 
@@ -32,8 +35,8 @@ class DateConfigurator extends Component {
       markedDates: newMarkedDates.reduce((marked, date, ind) => ({
         ...marked,
         [date.yyyymmdd()]: {
-          color: 'blue',
-          textColor: 'white',
+          color: SELECTION_COLOR,
+          textColor: '#fff',
           startingDay: ind === 0,
           endingDay: ind === newMarkedDates.length - 1,
         }
@@ -44,13 +47,16 @@ class DateConfigurator extends Component {
   onDayPress = (day) => {
     let newState = {};
     const { startingDate, endingDate } = this.state;
-    
+    const { rangeSelected } = this.props;
+
     if (!startingDate || (startingDate && endingDate)) {
       newState = this._firstDayPress(day);
     } else {
-      newState = this._seonDayPress(day);
+      newState = this._seconDayPress(day);
+      rangeSelected && rangeSelected(newState);
     }
-    
+
+    Haptic.impact(Haptic.ImpactStyles.Light);
     this.setState(newState);
   }
   
@@ -60,14 +66,12 @@ class DateConfigurator extends Component {
         current={Date()}
         minDate={'2012-05-10'}
         onDayPress={this.onDayPress}
-        monthFormat={'yyyy MM'}
-        onMonthChange={(month) => {console.log('month changed', month)}}
+        monthFormat={'MMMM yyyy'}
         hideExtraDays={true}
         firstDay={1}  
         markedDates={this.state.markedDates}
         markingType="period"
-        />
-      );
+      />);
     }
   }
   

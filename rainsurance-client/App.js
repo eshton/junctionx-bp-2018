@@ -88,6 +88,11 @@ class App extends Component {
     });
   };
 
+  canNavigate = () => {
+    const { screenIndex } = this.state;
+    return screenIndex > 0 && screenIndex < SCREENS.length - 2;
+  };
+
   render() {
     const { paneTop, paneHeight, screenIndex } = this.state;
 
@@ -103,7 +108,7 @@ class App extends Component {
           }]}>
               <HeaderNavigation
                 style={{ alignSelf: 'stretch' }}
-                shouldNavigate={screenIndex > 0}
+                shouldNavigate={this.canNavigate()}
                 goBack={this.navigateBack}
               />
               <View style={styles.headerContainerContent}>

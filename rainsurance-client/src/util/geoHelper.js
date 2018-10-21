@@ -2,7 +2,7 @@
 export const getCountryForCity = (name) => ({
   'New York': 'us',
   'Stockholm': 'se',
-  'Vienna': 'au',
+  'Sydney': 'au',
   'Rome': 'it',
   'Paris': 'fr',
   'Hamburg': 'de',

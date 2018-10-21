@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "xdate": "^0.8.2"
+  }
+}

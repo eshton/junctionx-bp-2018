@@ -50,7 +50,7 @@ app.post('/api/v1/pay', (request,response) => {
 	        	console.log(error);
 	        	response.send(error);
 	        } else {
-	        	console.log(result);
+	        	console.log("Payment sent to contract, tx id: https://ropsten.etherscan.io/tx/" + result);
 	        	response.send(result);
 	        }
     	});
@@ -113,11 +113,12 @@ app.post('/api/v1/quote', (request, response) => {
 	        	console.log(error);
 	            response.send(error);
 	        } else {
-	        	console.log(result);
+	        	console.log("Insurance contract transaction started: https://ropsten.etherscan.io/tx/" + result);
 	        	var resp = {
 					insurancePrice: insurancePrice,
 					pollId: pollId
 				}
+				console.log("PollId: " + pollId);
 				response.send(resp); 
 	        }
     	})
@@ -139,6 +140,7 @@ app.listen(port, (err) => {
 	var contract = new web3.eth.Contract(mainContract, mainContractAddress);
 
   (function() {
+  		return;
 		const Poller = require('./Poller');
 		let poller = new Poller(2000); 
 		poller.onPoll(() => {

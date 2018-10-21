@@ -1,7 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import ActionButton from '../components/ActionButton';
-import { Ionicons } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
   container: {

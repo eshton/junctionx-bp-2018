@@ -1,6 +1,6 @@
 import { Animated } from 'react-native';
 
-export const percentage = (val) => val.interpolate({
+export const percentageInterpolation = (val) => val.interpolate({
   inputRange: [0, 100],
   outputRange: ['0%', '100%']
 });

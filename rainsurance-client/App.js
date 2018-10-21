@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { Animated, Image, StyleSheet, View } from 'react-native';
+import { Animated, Image, StyleSheet, SafeAreaView, View } from 'react-native';
 import { LinearGradient } from 'expo';
 import Workflow, { SCREENS, HeaderContent } from './src/Workflow';
-import { percentage, animateCounterPercentage } from './src/util/animation-helper';
+import { percentageInterpolation, animateCounterPercentage } from './src/util/animation-helper';
+import HeaderNavigation from './src/components/HeaderNavigation';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'flex-start',
   },
   headerContainer: {
     marginTop: 30,
+    alignItems: 'center',
   },
   headerContainerContent: {
     flexDirection: 'column',
@@ -66,21 +68,23 @@ class App extends Component {
 
     return (
       <LinearGradient
-        style={styles.container}
+        style={{ height: '100%' }}
         colors={['#41E3F1', '#0070F9']}
         start={[1, 0.1]}
       >
-        <Animated.View style={[styles.headerContainer, {
-          height: percentage(paneTop)
-        }]}>
-          <Image source={require('./assets/otpBankLogo.png')} style={styles.logo} resizeMode="contain" />
-          <View style={styles.headerContainerContent}>
-            {this.renderHeaderContent()}
-          </View>
-        </Animated.View>
+        <SafeAreaView style={styles.container}>
+          <Animated.View style={[styles.headerContainer, {
+            height: percentageInterpolation(paneTop)
+          }]}>
+              <HeaderNavigation style={{ alignSelf: 'stretch' }} shouldNavigate={false} />
+              <View style={styles.headerContainerContent}>
+                {this.renderHeaderContent()}
+              </View>
+          </Animated.View>
+        </SafeAreaView>
         <Animated.View style={[styles.floatingPane, {
-          top: percentage(paneTop),
-          height: percentage(paneHeight)
+          top: percentageInterpolation(paneTop),
+          height: percentageInterpolation(paneHeight)
         }]}>
           <Workflow
             style={styles.content}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, Text, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { Haptic } from 'expo';
+import { getCountryForCity } from '../util/geoHelper';
 
 const cities = [
   'New York',
@@ -38,7 +39,14 @@ const styles = StyleSheet.create({
   itemStyle: {
     ...borderStyle,
     padding: 5,
-    margin: 10
+    margin: 10,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  flag: {
+    width: 15,
+    height: 15,
+    marginRight: 6
   }
 }); 
 
@@ -47,6 +55,7 @@ const CityResult = ({ city, selected, pressed }) => (
     onPress={pressed}
     style={[styles.itemStyle, { backgroundColor: selected ? 'rgb(43, 54, 149)' : '#fff'}]}
   >
+    <Image style={styles.flag} source={{ uri: `https://www.countryflags.io/${getCountryForCity(city)}/shiny/32.png` }} />
     <Text style={{ color: selected ? '#fff' : '#000' }}>{city}</Text>
   </TouchableOpacity>
 );

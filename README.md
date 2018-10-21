@@ -10,14 +10,21 @@ https://budapest.hackjunction.com/
 |_______/    |__|\__\     |__|     |__| \__| |_______|    |__|     
 </pre>
 
-# Team SkyNET (formerly known as Skyscanner (www.skyscanner.net))
+# Team SkyNET 
+## *formerly known as Skyscanner (www.skyscanner.net)*
+
 - **Adam Pelle** - Frontend
 - **Agoston Fung** - Backend/Dad jokes
 - **Aron Pammer** - Backend/Blockchain
 - **Donat Bali-Papp** - Designer
 
-# RAINsurance
-Insure your holiday, get your money back if the rain ruined it! Easy to setup with your mobile, automatically contracted, secured and executed by the power of the blockchain.
-Technologies: Blockchain (Ethereum), ReactNative (Expo), NodeJS
+# Rainsurance&trade;
+### Project description
+Rainsurance&trade; is beautifully designed to create a stress-free holiday regardless of the weather conditions. Insure your trip and get your money back if the rain, wind or snow ruined it (or the lack of)! It has never been so easy to setup and contract an insurance policy, from your pocket only a few taps away. Rainsurance&trade; also guarantees instant and secure creation and automatic execution by the power of the blockchain. 
+
+### Technologies
+ - **Blockchain** (Ethereum)
+ - **ReactNative** (Expo)
+ - **NodeJS** (Express)
 
 ![alt text](https://github.com/eshton/junctionx-bp-2018/blob/master/rainsurance_design/1-2-3.png?raw=true)

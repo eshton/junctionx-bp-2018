@@ -1,42 +1,9 @@
-exports.trustedWeatherAddress = '0x41A153E71C62b4CB918104EE0DFb9B29b30339CB';
-exports.bankPrivateKey = '0xD4A9C8084E603E27DE7CF24E545E2DEC733D6B4A8F05696B61DB2D4301C24A56';
-exports.weatherPrivateKey = '0xE738C9D6CD42C1374CD32289940385FE1D29D989087EA54C961149FEBD32F32C';
-exports.bankAddress = '0xaeEb5e5e097394CFf0e9Bb88cb62EFAF4841Dcc3';
-exports.mainContractAddress = '0xf698c75376c1aea47457e3f324ba92e502c953bd';
+exports.trustedWeatherAddress = '0x7eacB01195De3A7D6747958473110D182720e018';
+exports.bankPrivateKey = '0xcbdabc28ba40d4d4a528e0789b2bfba5a6ba334f4f06c88330440530cb4da4e3';
+exports.weatherPrivateKey = '0xa6bfb0863b2413ba132ad72405ebf2ec45fcb578d8a641109414c5d8ceaff32d';
+exports.bankAddress = '0xa8898a92A797788d1a889d6f27dB016e30a90C29';
+exports.mainContractAddress = '0x3b99bcd45c164416ea94f04a03d4fd5db84c13fc';
 exports.mainContract = [
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "insurances",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getDiagnosesCount",
-		"outputs": [
-			{
-				"name": "count",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
-	},
 	{
 		"constant": false,
 		"inputs": [
@@ -68,14 +35,47 @@ exports.mainContract = [
 		"name": "createRainsurence",
 		"outputs": [],
 		"payable": true,
-		"type": "function",
-		"stateMutability": "payable"
+		"stateMutability": "payable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
 		"payable": false,
-		"type": "constructor",
-		"stateMutability": "nonpayable"
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getDiagnosesCount",
+		"outputs": [
+			{
+				"name": "count",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "insurances",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ];
 exports.rainsuranceContract = [
@@ -90,8 +90,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": false,
@@ -99,8 +99,8 @@ exports.rainsuranceContract = [
 		"name": "receiveMoneyFromCustomer",
 		"outputs": [],
 		"payable": true,
-		"type": "function",
-		"stateMutability": "payable"
+		"stateMutability": "payable",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -113,8 +113,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -127,8 +127,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -141,8 +141,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -155,8 +155,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -169,8 +169,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -183,8 +183,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -197,8 +197,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": false,
@@ -206,8 +206,8 @@ exports.rainsuranceContract = [
 		"name": "rollback",
 		"outputs": [],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "nonpayable"
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -220,8 +220,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": false,
@@ -234,8 +234,8 @@ exports.rainsuranceContract = [
 		"name": "updateRain",
 		"outputs": [],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "nonpayable"
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"constant": true,
@@ -248,8 +248,8 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": false,
-		"type": "function",
-		"stateMutability": "view"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -279,7 +279,7 @@ exports.rainsuranceContract = [
 			}
 		],
 		"payable": true,
-		"type": "constructor",
-		"stateMutability": "payable"
+		"stateMutability": "payable",
+		"type": "constructor"
 	}
 ];

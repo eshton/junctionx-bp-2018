@@ -1,7 +1,9 @@
+import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import Index from './screens';
-import InsuranceConfigurator from './screens/InsuranceConfigurator';
+import DateConfigurator from './screens/DateConfigurator';
+import LocationConfigurator from './screens/LocationConfigurator';
 import InsuranceResult from './screens/InsuranceResult';
 
 import UserProfile from './components/UserProfile';
@@ -10,22 +12,26 @@ require('./util/extensions');
 
 export const SCREENS = [
   'Index',
+  'LocationConfigurator',
   'DateConfigurator',
-  'LocationConfigurator'
+  'InsuranceResult'
 ];
 
 export const HeaderContent = {
   Index: UserProfile
 };
 
-export default createStackNavigator({
+const Navigator = createStackNavigator({
   Index: {
     screen: Index,
   },
   DateConfigurator: {
-    screen: InsuranceConfigurator,
+    screen: DateConfigurator,
   },
   LocationConfigurator: {
+    screen: LocationConfigurator,
+  },
+  InsuranceResult: {
     screen: InsuranceResult,
   },
 }, {
@@ -38,3 +44,8 @@ export default createStackNavigator({
     gesturesEnabled: false,
   }
 });
+
+
+export default ({ navigatorRef, ...props }) => (
+  <Navigator ref={navigatorRef} {...props} />
+);

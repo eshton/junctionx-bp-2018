@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 });
 
 const UserProfile = () => (
-  <View stlye={styles.container}>
+  <View style={styles.container}>
     <Image source={require('../../assets/csanyi.png')} />
     <Text style={styles.name}>Sandor Csanyi</Text>
   </View>

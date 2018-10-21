@@ -2,8 +2,8 @@ export default () => {
 	const fromDate = "1540042175";
 	const toDate = "1540142175";
 	const destination = "Paris";
-	const insuranceValue = 5000;
-	const customerAddress = "0xe86A9E3Bf11aD57E8cADcE910C1A4865B5793545";
+	const insuranceValue = 5;
+	const customerAddress = "0x171a33c7f7AF13237cE4B0830712b6943e618d14";
 	const rainMm = 4;
 	var body = {
 		"fromDate": fromDate,

@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, SafeAreaView, View } from 'react-native';
+import { Animated, StyleSheet, SafeAreaView, View } from 'react-native';
 import { LinearGradient } from 'expo';
+import { NavigationActions } from 'react-navigation';
 import Workflow, { SCREENS, HeaderContent } from './src/Workflow';
+import { percentageInterpolation, animateCounterPercentage } from './src/util/animation-helper';
+import HeaderNavigation from './src/components/HeaderNavigation';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'flex-start',
   },
   headerContainer: {
-    marginTop: 40,
+    marginTop: 30,
+    alignItems: 'center',
   },
   headerContainerContent: {
-    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    height: 40,
+    width: 200
   },
   floatingPane: {
     position: 'absolute',
@@ -41,56 +46,73 @@ class App extends Component {
 
   state = {
     screenIndex: 0,
-    paneTop: 75,
+    paneTop: new Animated.Value(85),
+    paneHeight: new Animated.Value(15),
   };
+
+  get screen() {
+    return SCREENS[this.state.screenIndex];
+  }
 
   onNavigating = (event) => {
     let paneTop = 25;
-    const nextScreen = SCREENS[event.index + 1];
 
-    switch(name) {
-      case 'Index':
-        paneTop = 75;
+    switch(event.index) {
+      case 0:
+        paneTop = 85;
         break;
     }
 
-    this.setState({ paneTop, screenIndex: event.index + 1 });
+    animateCounterPercentage(this.state.paneTop, this.state.paneHeight, paneTop);
+    this.setState({ screenIndex: event.index });
+  };
+
+  navigateBack = () => {
+    this.navigator.dispatch(
+      NavigationActions.back()
+    );
   };
 
   renderHeaderContent = () => {
-    const screen = SCREENS[this.state.screenIndex];
-    const component = HeaderContent[screen];
+    const component = HeaderContent[this.screen];
     return component && component();
   };
 
   render() {
-    const { paneTop, screenIndex } = this.state;
+    const { paneTop, paneHeight, screenIndex } = this.state;
 
     return (
       <LinearGradient
-        style={styles.container}
+        style={{ height: '100%' }}
         colors={['#41E3F1', '#0070F9']}
         start={[1, 0.1]}
       >
-        <SafeAreaView style={[styles.headerContainer, {
-          height: `${paneTop}%`
-        }]}>
-          <Image source={require('./assets/otpBankLogo.png')} style={styles.logo} />
-          <View style={styles.headerContainerContent}>
-            {this.renderHeaderContent()}
-          </View>
+        <SafeAreaView style={styles.container}>
+          <Animated.View style={[styles.headerContainer, {
+            height: percentageInterpolation(paneTop)
+          }]}>
+              <HeaderNavigation
+                style={{ alignSelf: 'stretch' }}
+                shouldNavigate={screenIndex > 0}
+                goBack={this.navigateBack}
+              />
+              <View style={styles.headerContainerContent}>
+                {this.renderHeaderContent()}
+              </View>
+          </Animated.View>
         </SafeAreaView>
-        <View style={[styles.floatingPane, {
-          top: `${paneTop}%`,
-          height: `${100 - paneTop}%`,
+        <Animated.View style={[styles.floatingPane, {
+          top: percentageInterpolation(paneTop),
+          height: percentageInterpolation(paneHeight)
         }]}>
           <Workflow
             style={styles.content}
+            navigatorRef={(navigator) => { this.navigator = navigator; }}
             initialRouteName={SCREENS[0]}
             onTransitionStart={this.onNavigating}
             screenProps={{ nextScreen: SCREENS[screenIndex + 1] }}
           />
-        </View>
+        </Animated.View>
       </LinearGradient>
     );
   }

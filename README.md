@@ -5,7 +5,7 @@ https://budapest.hackjunction.com/
 Insure your holiday, get your money back if the rain ruined it! Easy to setup with your mobile, automatically contracted, secured and executed by the power of the blockchain.
 Technologies: Blockchain (Ethereum), ReactNative (Expo), NodeJS
 
-<div style="background:black;width:50px;height:50px;></div>
+<div style="background:black;width:50px;height:50px;"></div>
 
 
 

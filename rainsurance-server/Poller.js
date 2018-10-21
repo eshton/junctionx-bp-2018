@@ -1,23 +1,17 @@
-// =======================================================
-// Poller.js
-// =======================================================
 const EventEmitter = require('events');
 
+const defaultTimeout = 100;
+
 class Poller extends EventEmitter {
-    /**
-     * @param {int} timeout how long should we wait after the poll started?
-     */
-    constructor(timeout = 100) {
+    constructor(timeout = defaultTimeout) {
         super();
         this.timeout = timeout;
     }
-
-    poll() {
+    poll() { 
         setTimeout(() => this.emit('poll'), this.timeout);
     }
-
-    onPoll(cb) {
-        this.on('poll', cb);
+    onPoll(cb) { 
+        this.on('poll', cb); 
     }
 }
 

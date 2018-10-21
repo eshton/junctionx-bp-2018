@@ -1,4 +1,12 @@
-var crypto = require('./cryptostuff');
+//Library imports
+const Web3 = require('web3');
+const express = require('express');
+
+//Project imports
+const crypto = require('./CryptoConfiguration');
+const WeatherAPI = require('./WeatherAPI');
+
+var weatherAPI = new WeatherAPI();
 
 const mainContract = crypto.mainContract;
 const rainsuranceContract = crypto.rainsuranceContract;
@@ -10,9 +18,6 @@ const trustedWeatherAddress = crypto.trustedWeatherAddress;
 const ropstenUrl = 'https://ropsten.infura.io';
 const gas = 4000000;
 
-var Web3 = require('web3');
-
-const express = require('express');
 const app = express();
 const port = 1337;
 
@@ -133,12 +138,18 @@ app.listen(port, (err) => {
 	web3.eth.accounts.wallet.add(weatherPrivateKey);
 	var contract = new web3.eth.Contract(mainContract, mainContractAddress);
 
-  (function() {
-		const Poller = require('./Poller');
-		let poller = new Poller(1000); 
-		poller.onPoll(() => {
+	function sleepFor(seconds) {
+	  return new Promise(resolve => {
+	    setTimeout(() => {
+	      resolve('resolved');
+	    }, seconds * 1000);
+	  });
+	}
 
-			return;
+  (async function() {
+		const Poller = require('./Poller');
+		let poller = new Poller(2000); 
+		poller.onPoll(() => {
 		    console.log('Checking RAINsurances ...');
 
 			contract.methods.getDiagnosesCount().call(function(error, numRainsurances){
@@ -148,40 +159,43 @@ app.listen(port, (err) => {
 				for (var i = 0; i < numRainsurances; i++) {
 					var p = new Promise(function(resolve, reject){
 						contract.methods.insurances(i).call(function(error, rainsuranceAddress){
-							console.log(rainsuranceAddress);
+							
 							var r = new web3.eth.Contract(rainsuranceContract, rainsuranceAddress);
 
 							r.methods.money_bank().call(function(error, money_bank){
 								r.methods.money_customer().call(function(error, money_customer){
 									if (money_customer != 0 && money_bank != 0) {
-										console.log(trustedWeatherAddress);
-										r.methods.updateRain(500).send({ 
-																  		from: trustedWeatherAddress, 
-																  		gas: gas
-																	  	},function(error, result){
-											console.log("Calling updateRain for rainsurance...");
-											if (error) {
-												console.log(error);
-												resolve();
-											} else {
-												console.log(result);
-												console.log('Rainsurance finished successfully ...');	
-												resolve();
-											}
+										console.log("Money was paid by both customer and bank ... let's check the weather ...");
+
+										r.methods.city().call(function(error,city){
+											var rainedMM = weatherAPI.getRainMM(city, "","");
+											console.log(`In ${city} it rained ${rainedMM}, let's update rainsurance...`);
+											r.methods.updateRain(rainedMM).send({ 
+																	  		from: trustedWeatherAddress, 
+																	  		gas: gas
+																		  	},function(error, result){
+												if (error) {
+													console.log(error);
+													resolve();
+												} else {
+													console.log(result);
+													console.log('Rainsurance updated successfully, let\'s wait for 1 minute...');	
+													await sleepFor(180);
+													resolve();
+												}
+											});
 										});
 									} else {
 										resolve();
 									}
 								});
 							});
-
 						});
-						
 					});
-
 					promises.push(p);
 				}
 				Promise.all(promises).then(function(values){
+					console.log("Finished processing rainsurances ...");
 					poller.poll();
 				});
 			});

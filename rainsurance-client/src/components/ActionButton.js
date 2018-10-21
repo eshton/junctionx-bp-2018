@@ -11,14 +11,14 @@ const styles = StyleSheet.create({
   },
   buttonContent: {
     flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
   },
   label: {
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
     marginLeft: 10,
-    position: 'relative',
-    top: 4
   }
 });
 

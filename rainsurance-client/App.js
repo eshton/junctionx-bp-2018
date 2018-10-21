@@ -59,6 +59,7 @@ class App extends Component {
 
     switch(event.index) {
       case 0:
+      case 3: 
         paneTop = 85;
         break;
     }

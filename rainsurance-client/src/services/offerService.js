@@ -1,3 +1,5 @@
+const IP = '192.168.80.199:1337';
+
 class OfferService {
 	async getOffer() {
 		const fromDate = "1540042175";
@@ -15,7 +17,7 @@ class OfferService {
 			"rainMm": rainMm
 		};
 		console.log(JSON.stringify(body));
-		const res = await fetch('http://127.0.0.1:1337/api/v1/quote', { 
+		const res = await fetch(`http://${IP}/api/v1/quote`, { 
 				method: 'POST', 
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(body)
@@ -29,18 +31,21 @@ class OfferService {
 	}
 
 	async pollTransaction() {
-		const wait = (time = 1000) => new Promise(resolve => setTimeout(resolve, time));
-		let res;
+		const wait = (time = 2000) => new Promise(resolve => setTimeout(resolve, time));
+		let text;
 
 		do {
-			res = await fetch(`http://127.0.0.1:1337/api/v1/address_for_pollid/${this.pollId}`);
+      const res = await fetch(`http://${IP}/api/v1/address_for_pollid/${this.pollId}`);
+      
+      text = await res.text();
+      console.log('POLLINg....', text);
 
-			if (res == "0x0000000000000000000000000000000000000000") {
+			if (text === "0x0000000000000000000000000000000000000000") {
 				await wait();
 			}
-		} while (res != "0x0000000000000000000000000000000000000000");
+		} while (text === "0x0000000000000000000000000000000000000000");
 
-		this.contractId = res;
+		this.contractId = text;
 	}
 
 	async pay() {
@@ -56,7 +61,7 @@ class OfferService {
 			"myAddress": myAddress
 		};
 		console.log(JSON.stringify(body));
-		await fetch('http://127.0.0.1:1337/api/v1/pay', { 
+		await fetch(`http://${IP}/api/v1/pay`, { 
 				method: 'POST', 
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(body)

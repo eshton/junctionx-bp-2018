@@ -22,6 +22,6 @@ export const loadingAnimation = (defaultIcon, loading) => {
   if (loading) {
     return <ActivityIndicator size="small" color="#fff" />;
   } else {
-    return <Ionicons size={33} name={defaultIcon} color='#fff' />;
+    return <Ionicons size={33} name={defaultIcon} color="#fff" style={{ position: 'relative', top: 2 }} />;
   }
 };

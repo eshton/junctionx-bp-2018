@@ -5,6 +5,7 @@ import Index from './screens';
 import DateConfigurator from './screens/DateConfigurator';
 import LocationConfigurator from './screens/LocationConfigurator';
 import InsuranceResult from './screens/InsuranceResult';
+import OfferConfigurator from './screens/OfferConfigurator';
 
 import UserProfile from './components/UserProfile';
 
@@ -14,6 +15,7 @@ export const SCREENS = [
   'Index',
   'LocationConfigurator',
   'DateConfigurator',
+  'OfferConfigurator',
   'InsuranceResult'
 ];
 
@@ -30,6 +32,9 @@ const Navigator = createStackNavigator({
   },
   LocationConfigurator: {
     screen: LocationConfigurator,
+  },
+  OfferConfigurator: {
+    screen: OfferConfigurator,
   },
   InsuranceResult: {
     screen: InsuranceResult,

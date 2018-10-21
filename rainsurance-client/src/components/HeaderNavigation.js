@@ -1,21 +1,20 @@
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import store from '../util/store';
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     paddingHorizontal: 20
     // backgroundColor: 'green',
   },
   logo: {
     flex: 3,
     alignSelf: 'center',
-    height: 35,
-    // width: 200
+    height: 30,
   },
   naviButton: {
     borderWidth: 1,
@@ -25,8 +24,30 @@ const styles = StyleSheet.create({
     height: 35,
     paddingLeft: 5,
     paddingTop: 1
-  }
+  },
+  detailsStyle: {
+    fontWeight: 'bold',
+    fontSize: 17,
+    flexDirection: 'row',
+    color: '#fff',
+    marginLeft: 20
+  },
 });
+
+const checkStore = () => {
+  console.log(store.location);
+  return store.location || store.dateRange
+};
+
+const renderImage = () => (
+  <Image source={require('../../assets/otpBankLogo.png')} style={styles.logo} resizeMode="contain" />
+);
+
+const renderDetails = () => (
+  <Text style={styles.detailsStyle}>
+    {[store.location, store.dateRange].join(' ')}
+  </Text>
+);
 
 const HeaderNavigation = ({ style, shouldNavigate, goBack }) => (
   <View style={[styles.container, style]}>
@@ -36,7 +57,7 @@ const HeaderNavigation = ({ style, shouldNavigate, goBack }) => (
       </TouchableOpacity>
     )}
 
-    <Image source={require('../../assets/otpBankLogo.png')} style={styles.logo} resizeMode="contain" />
+    {checkStore() ? renderDetails() : renderImage()}
   </View>
 );
 

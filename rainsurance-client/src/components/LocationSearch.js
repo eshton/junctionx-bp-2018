@@ -72,8 +72,12 @@ class LocationSearch extends Component {
   };
 
   selectCity = (selectedIndex) => {
+    const { results } = this.state;
+
     Haptic.impact(Haptic.ImpactStyles.Light);
     this.setState({ selectedIndex });
+
+    this.props.onSelect(results[selectedIndex]);
   };
 
   render() {

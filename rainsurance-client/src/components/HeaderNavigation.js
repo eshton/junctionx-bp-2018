@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const HeaderNavigation = ({ style, shouldNavigate, navigation }) => (
+const HeaderNavigation = ({ style, shouldNavigate, goBack }) => (
   <View style={[styles.container, style]}>
     {shouldNavigate && (
-      <TouchableOpacity style={styles.naviButton} onPress={() => null}>
+      <TouchableOpacity style={styles.naviButton} onPress={goBack}>
         <Ionicons size={30} name="md-arrow-back" color='#fff' />
       </TouchableOpacity>
     )}

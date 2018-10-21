@@ -9,7 +9,7 @@ const rangeSelected = (range) => {
 };
 
 const getOffer = async () => {
-  store.offer = await offerService();
+  store.offer = await offerService.getOffer();
 };
 
 const InsuranceConfigurator = ({ screenProps: { nextScreen } }) => (

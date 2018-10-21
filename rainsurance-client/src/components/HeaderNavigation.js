@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import XDate from 'xdate';
 import { Ionicons } from '@expo/vector-icons';
 import store from '../util/store';
 
@@ -39,13 +40,26 @@ const checkStore = () => {
   return store.location || store.dateRange
 };
 
+const getDateRange = () => {
+  if (!store.dateRange) {
+    return null;
+  }
+
+  const start = new XDate(store.dateRange.startingDate);
+  const end = new XDate(store.dateRange.endingDate);
+
+  const months = [start.toString('MMM d'), end.toString('MMM d')].join('-');
+
+  return `${months}    ${start.toString('yyyy')}`;
+};
+
 const renderImage = () => (
   <Image source={require('../../assets/otpBankLogo.png')} style={styles.logo} resizeMode="contain" />
 );
 
 const renderDetails = () => (
   <Text style={styles.detailsStyle}>
-    {[store.location, store.dateRange].join(' ')}
+    {[store.location, getDateRange()].join('    ')}
   </Text>
 );
 

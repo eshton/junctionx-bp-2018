@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ActionButton from 'react-native-action-button';
-import { Ionicons } from '@expo/vector-icons';
+import { loadingAnimation } from '../util/animation-helper';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +30,7 @@ class NavigationScreen extends PureComponent {
       }
 
       this.setState({ inProgress: false }, () => navigate(nextScreen));
-    })
+    });
   };
 
   render() {
@@ -43,13 +43,7 @@ class NavigationScreen extends PureComponent {
           buttonColor='rgb(255, 102, 0)'
           onPress={this.executeAction}
           style={styles.cta}
-          renderIcon={() => {
-            if (this.state.inProgress) {
-              return <ActivityIndicator size="small" color="#fff" />;
-            } else {
-              return <Ionicons size={25} name="md-arrow-round-forward" color='#fff' />;
-            }
-          }}
+          renderIcon={() => loadingAnimation('md-arrow-round-forward', this.state.inProgress)}
         >
         </ActionButton>
       </View>

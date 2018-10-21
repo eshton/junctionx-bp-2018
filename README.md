@@ -1,3 +1,5 @@
+![alt text](https://github.com/eshton/junctionx-bp-2018/blob/master/rainsurance_design/presentation/02-Description.png?raw=true)
+
 # JunctionX Budapest 2018
 https://budapest.hackjunction.com/
 
@@ -29,4 +31,4 @@ Rainsurance&trade; is beautifully designed to create a stress-free holiday regar
  - **ReactNative** (Expo)
  - **NodeJS** (Express)
 
-![alt text](https://github.com/eshton/junctionx-bp-2018/blob/master/rainsurance_design/presentation/02-Description.png?raw=true)
+![alt text](https://github.com/eshton/junctionx-bp-2018/blob/master/rainsurance_design/presentation/05-Technology.png?raw=true)

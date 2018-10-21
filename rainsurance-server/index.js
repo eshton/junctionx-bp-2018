@@ -87,7 +87,7 @@ app.post('/api/v1/quote', (request, response) => {
 	var customerAddress = request.body.customerAddress;
 	var rainMm = request.body.rainMm;
 
-	var insurancePrice = 500; //TODO: create mock service
+	var insurancePrice = 5; //TODO: create mock service
 
 	try {
 	  contract.methods.createRainsurence(

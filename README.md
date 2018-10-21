@@ -11,7 +11,7 @@ https://budapest.hackjunction.com/
 </pre>
 
 # Team SkyNET 
-## *formerly known as Skyscanner (www.skyscanner.net)*
+*formerly known as Skyscanner (www.skyscanner.net)*
 
 - **Adam Pelle** - Frontend
 - **Agoston Fung** - Backend/Dad jokes

@@ -7,14 +7,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     paddingHorizontal: 20
     // backgroundColor: 'green',
   },
   logo: {
     flex: 3,
     alignSelf: 'center',
-    height: 30,
+    height: 25,
   },
   naviButton: {
     borderWidth: 1,
@@ -58,7 +58,9 @@ const HeaderNavigation = ({ style, shouldNavigate, goBack }) => (
     )}
 
     {checkStore() ? renderDetails() : renderImage()}
+    <View></View>
   </View>
+
 );
 
 export default HeaderNavigation;

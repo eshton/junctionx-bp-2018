@@ -148,7 +148,7 @@ app.listen(port, (err) => {
 	}
 
   (function() {
-  		//return;
+  		return;
 		const Poller = require('./Poller');
 		let poller = new Poller(2000); 
 		poller.onPoll(() => {

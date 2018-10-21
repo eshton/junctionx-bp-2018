@@ -7,6 +7,7 @@ import LocationConfigurator from './screens/LocationConfigurator';
 import InsuranceResult from './screens/InsuranceResult';
 import OfferConfigurator from './screens/OfferConfigurator';
 import { withQuestion } from './components/NavigationIndicator';
+import { withPrice, withThumbsup } from './components/OfferWidget';
 
 import UserProfile from './components/UserProfile';
 
@@ -24,6 +25,8 @@ export const HeaderContent = {
   Index: UserProfile,
   LocationConfigurator: withQuestion('Where would you like to travel?'),
   DateConfigurator: withQuestion('When would you like to travel?'),
+  OfferConfigurator: withPrice(),
+  InsuranceResult: withThumbsup(),
 };
 
 const Navigator = createStackNavigator({

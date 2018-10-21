@@ -5,6 +5,7 @@ import { NavigationActions } from 'react-navigation';
 import Workflow, { SCREENS, HeaderContent } from './src/Workflow';
 import { percentageInterpolation, animateCounterPercentage } from './src/util/animation-helper';
 import HeaderNavigation from './src/components/HeaderNavigation';
+import store from './src/util/store';
 
 const styles = StyleSheet.create({
   container: {
@@ -63,6 +64,10 @@ class App extends Component {
       case 4:
         paneTop = 85;
         break;
+    }
+
+    if (event.index === 0) {
+      store.reset();
     }
 
     animateCounterPercentage(this.state.paneTop, this.state.paneHeight, paneTop);

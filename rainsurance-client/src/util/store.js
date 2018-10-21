@@ -23,6 +23,11 @@ class Store {
   set offer(val) {
     this._offer = val;
   }
+
+  reset() {
+    this.dateRange = null;
+    this.location = null;
+  }
 }
 
 export default new Store();

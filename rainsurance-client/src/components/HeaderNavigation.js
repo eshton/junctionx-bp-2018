@@ -8,23 +8,23 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    alignContent: 'center',
+    justifyContent: 'flex-start',
     paddingHorizontal: 20
-    // backgroundColor: 'green',
   },
   logo: {
     flex: 3,
     alignSelf: 'center',
-    height: 25,
+    height: 32,
   },
   naviButton: {
     borderWidth: 1,
     borderColor: '#fff',
     borderRadius: 20,
-    width: 35,
-    height: 35,
+    width: 32,
+    height: 32,
     paddingLeft: 5,
-    paddingTop: 1
+    // paddingTop: 1
   },
   detailsStyle: {
     fontWeight: 'bold',
@@ -72,7 +72,7 @@ const HeaderNavigation = ({ style, shouldNavigate, goBack }) => (
     )}
 
     {checkStore() ? renderDetails() : renderImage()}
-    <View></View>
+    {shouldNavigate && <View style={{ width: 32, height: 32 }} />}
   </View>
 
 );

@@ -55,7 +55,7 @@ class App extends Component {
   }
 
   onNavigating = (event) => {
-    let paneTop = 25;
+    let paneTop = 27;
 
     switch(event.index) {
       case 0:
@@ -77,7 +77,10 @@ class App extends Component {
 
   renderHeaderContent = () => {
     const component = HeaderContent[this.screen];
-    return component && component();
+    return component && component({
+      stepCount: SCREENS.length,
+      index: this.state.screenIndex
+    });
   };
 
   render() {

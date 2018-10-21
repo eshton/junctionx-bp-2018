@@ -140,7 +140,6 @@ app.listen(port, (err) => {
 	var contract = new web3.eth.Contract(mainContract, mainContractAddress);
 
   (function() {
-  		return;
 		const Poller = require('./Poller');
 		let poller = new Poller(2000); 
 		poller.onPoll(() => {

@@ -6,7 +6,7 @@ import { getCountryForCity } from '../util/geoHelper';
 const cities = [
   'New York',
   'Stockholm',
-  'Vienna',
+  'Sydney',
   'Rome',
   'Paris',
   'Hamburg',

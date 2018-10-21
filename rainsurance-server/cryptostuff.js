@@ -2,11 +2,15 @@ exports.trustedWeatherAddress = '0x7eacB01195De3A7D6747958473110D182720e018';
 exports.bankPrivateKey = '0xcbdabc28ba40d4d4a528e0789b2bfba5a6ba334f4f06c88330440530cb4da4e3';
 exports.weatherPrivateKey = '0xa6bfb0863b2413ba132ad72405ebf2ec45fcb578d8a641109414c5d8ceaff32d';
 exports.bankAddress = '0xa8898a92A797788d1a889d6f27dB016e30a90C29';
-exports.mainContractAddress = '0x3b99bcd45c164416ea94f04a03d4fd5db84c13fc';
+exports.mainContractAddress = '0x98de3985d31326085d02a1162801828a4052ab31';
 exports.mainContract = [
 	{
 		"constant": false,
 		"inputs": [
+			{
+				"name": "poll_id",
+				"type": "string"
+			},
 			{
 				"name": "customer_address",
 				"type": "address"
@@ -43,6 +47,25 @@ exports.mainContract = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "pollid",
+				"type": "string"
+			}
+		],
+		"name": "getAddressForPollId",
+		"outputs": [
+			{
+				"name": "id",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,

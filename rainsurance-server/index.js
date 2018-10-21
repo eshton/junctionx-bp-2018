@@ -51,6 +51,27 @@ app.post('/api/v1/pay', (request,response) => {
     	});
 });
 
+app.get('/api/v1/address_for_pollid/:pollId', (request, response) => {
+	pollId = request.params.pollId;
+	var web3 = new Web3(new Web3.providers.HttpProvider(ropstenUrl));
+	web3.eth.accounts.wallet.add(bankPrivateKey);
+
+	var contract = new web3.eth.Contract(mainContract, mainContractAddress);
+
+	contract.methods.getAddressForPollId(pollId).call(function(err, address){
+	    if (err) {
+	      console.log(err);
+	    } else if (address !== null) {
+	      // Transaction went through
+      	  console.log(address)
+          response.send(address);
+	    }
+	    else {
+	    	response.send("ERROR");
+	    }
+	});
+});
+
 app.post('/api/v1/quote', (request, response) => {
 
 	console.log("Processing QUOTE request...");
@@ -60,6 +81,7 @@ app.post('/api/v1/quote', (request, response) => {
 	web3.eth.accounts.wallet.add(bankPrivateKey);
 	var contract = new web3.eth.Contract(mainContract, mainContractAddress);
 
+	var pollId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 	var fromDate = request.body.fromDate;
 	var toDate = request.body.toDate;
 	var destination = request.body.destination;
@@ -71,9 +93,10 @@ app.post('/api/v1/quote', (request, response) => {
 
 	try {
 	  contract.methods.createRainsurence(
+	  	pollId,
 	  	customerAddress, 
 	  	trustedWeatherAddress, 
-	  	insurancePrice,
+	  	web3.utils.toWei(insurancePrice + ".0", "finney"),
 	  	rainMm, 
 	  	destination, 
 	  	toDate).send({ 
@@ -88,7 +111,7 @@ app.post('/api/v1/quote', (request, response) => {
 	        	console.log(result);
 	        	var resp = {
 					insurancePrice: insurancePrice,
-					smartContractId: result
+					pollId: pollId
 				}
 				response.send(resp); 
 	        }
@@ -114,6 +137,8 @@ app.listen(port, (err) => {
 		const Poller = require('./Poller');
 		let poller = new Poller(1000); 
 		poller.onPoll(() => {
+
+			return;
 		    console.log('Checking RAINsurances ...');
 
 			contract.methods.getDiagnosesCount().call(function(error, numRainsurances){

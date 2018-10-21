@@ -138,14 +138,6 @@ app.listen(port, (err) => {
 	web3.eth.accounts.wallet.add(weatherPrivateKey);
 	var contract = new web3.eth.Contract(mainContract, mainContractAddress);
 
-	function sleepFor(seconds) {
-	  return new Promise(resolve => {
-	    setTimeout(() => {
-	      resolve('resolved');
-	    }, seconds * 1000);
-	  });
-	}
-
   (function() {
 		const Poller = require('./Poller');
 		let poller = new Poller(2000); 
@@ -173,15 +165,16 @@ app.listen(port, (err) => {
 											r.methods.updateRain(rainedMM).send({ 
 																	  		from: trustedWeatherAddress, 
 																	  		gas: gas
-																		  	},async function(error, result){
+																		  	}, function(error, result){
 												if (error) {
 													console.log(error);
 													resolve();
 												} else {
 													console.log(result);
 													console.log('Rainsurance updated successfully, let\'s wait for 3 minutes...');	
-													await sleepFor(180);
-													resolve();
+													setTimeout(function(){
+														resolve();
+													}, 180000);
 												}
 											});
 										});

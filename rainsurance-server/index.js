@@ -22,7 +22,7 @@ app.get('/', (request, response) => {
   response.send('Hello from Express!')
 });
 
-app.post('/api/v1/pay', (req,res) => {
+app.post('/api/v1/pay', (request,response) => {
 	console.log("Processing payment ...");
 	console.log(request.body);
 
@@ -36,15 +36,17 @@ app.post('/api/v1/pay', (req,res) => {
 
     var c = new web3.eth.Contract(rainsuranceContract, contractAddress);
 
-	c.methods.receiveMoneyFromCustomer().send({ 
+	c.methods.receiveMoneyFromCustomer().send({
 	  		from: myAddress, 
 	  		gas: gas, 
 	  		value: web3.utils.toWei(price + ".0", "finney")
 	  	},function(error, result) {
 	        if(result == null) {
 	        	console.log(error);
+	        	response.send(error);
 	        } else {
 	        	console.log(result);
+	        	response.send(result);
 	        }
     	});
 });

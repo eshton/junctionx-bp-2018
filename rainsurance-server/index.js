@@ -8,7 +8,7 @@ const mainContractAddress = crypto.mainContractAddress;
 const bankAddress = crypto.bankAddress;
 const trustedWeatherAddress = crypto.trustedWeatherAddress;
 const ropstenUrl = 'https://ropsten.infura.io';
-const gas = 8000000;
+const gas = 4000000;
 
 var Web3 = require('web3');
 

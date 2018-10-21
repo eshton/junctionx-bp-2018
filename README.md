@@ -29,4 +29,4 @@ Rainsurance&trade; is beautifully designed to create a stress-free holiday regar
  - **ReactNative** (Expo)
  - **NodeJS** (Express)
 
-![alt text](https://github.com/eshton/junctionx-bp-2018/blob/master/rainsurance_design/1-2-3.png?raw=true)
+![alt text](https://github.com/eshton/junctionx-bp-2018/blob/master/rainsurance_design/presentation/02-Description.png?raw=true)

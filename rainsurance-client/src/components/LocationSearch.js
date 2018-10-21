@@ -12,7 +12,7 @@ const cities = [
   'Hamburg',
   'Barcelona',
   'Moscow',
-  'Shenzen'
+  'Zurich'
 ].sort((a, b) => a.localeCompare(b));
 
 const borderStyle = {

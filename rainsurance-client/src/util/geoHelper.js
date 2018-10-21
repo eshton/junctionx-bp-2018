@@ -8,5 +8,5 @@ export const getCountryForCity = (name) => ({
   'Hamburg': 'de',
   'Barcelona': 'es',
   'Moscow': 'ru',
-  'Shenzen': 'ch'
+  'Zurich': 'ch'
 })[name];

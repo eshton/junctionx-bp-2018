@@ -38,15 +38,21 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     ...borderStyle,
+    width: 150,
+    height: 50,
     padding: 5,
-    margin: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    testSize: 25,
+    margin: 5,
     flexDirection: 'row',
     alignItems: 'center'
   },
   flag: {
-    width: 15,
-    height: 15,
-    marginRight: 6
+    width: 35,
+    height: 35,
+    marginLeft: 5,
+    marginRight: 10
   }
 }); 
 

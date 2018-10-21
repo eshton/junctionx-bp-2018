@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Animated, Image, StyleSheet, SafeAreaView, View } from 'react-native';
+import { Animated, StyleSheet, SafeAreaView, View } from 'react-native';
 import { LinearGradient } from 'expo';
+import { NavigationActions } from 'react-navigation';
 import Workflow, { SCREENS, HeaderContent } from './src/Workflow';
 import { percentageInterpolation, animateCounterPercentage } from './src/util/animation-helper';
 import HeaderNavigation from './src/components/HeaderNavigation';
@@ -49,17 +50,31 @@ class App extends Component {
     paneHeight: new Animated.Value(15),
   };
 
+  get screen() {
+    return SCREENS[this.state.screenIndex];
+  }
+
   onNavigating = (event) => {
     let paneTop = 25;
 
-    animateCounterPercentage(this.state.paneTop, this.state.paneHeight, paneTop);
+    switch(event.index) {
+      case 0:
+        paneTop = 85;
+        break;
+    }
 
+    animateCounterPercentage(this.state.paneTop, this.state.paneHeight, paneTop);
     this.setState({ screenIndex: event.index });
   };
 
+  navigateBack = () => {
+    this.navigator.dispatch(
+      NavigationActions.back()
+    );
+  };
+
   renderHeaderContent = () => {
-    const screen = SCREENS[this.state.screenIndex];
-    const component = HeaderContent[screen];
+    const component = HeaderContent[this.screen];
     return component && component();
   };
 
@@ -76,7 +91,11 @@ class App extends Component {
           <Animated.View style={[styles.headerContainer, {
             height: percentageInterpolation(paneTop)
           }]}>
-              <HeaderNavigation style={{ alignSelf: 'stretch' }} shouldNavigate={false} />
+              <HeaderNavigation
+                style={{ alignSelf: 'stretch' }}
+                shouldNavigate={screenIndex > 0}
+                goBack={this.navigateBack}
+              />
               <View style={styles.headerContainerContent}>
                 {this.renderHeaderContent()}
               </View>
@@ -88,6 +107,7 @@ class App extends Component {
         }]}>
           <Workflow
             style={styles.content}
+            navigatorRef={(navigator) => { this.navigator = navigator; }}
             initialRouteName={SCREENS[0]}
             onTransitionStart={this.onNavigating}
             screenProps={{ nextScreen: SCREENS[screenIndex + 1] }}

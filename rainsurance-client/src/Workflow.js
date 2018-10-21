@@ -1,3 +1,4 @@
+import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import Index from './screens';
@@ -20,7 +21,7 @@ export const HeaderContent = {
   Index: UserProfile
 };
 
-export default createStackNavigator({
+const Navigator = createStackNavigator({
   Index: {
     screen: Index,
   },
@@ -43,3 +44,8 @@ export default createStackNavigator({
     gesturesEnabled: false,
   }
 });
+
+
+export default ({ navigatorRef, ...props }) => (
+  <Navigator ref={navigatorRef} {...props} />
+);
